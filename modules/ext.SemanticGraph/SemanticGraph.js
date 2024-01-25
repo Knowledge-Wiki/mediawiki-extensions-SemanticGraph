@@ -25,7 +25,7 @@ isg.Graph = class {
 	objClickedProps = {};
 	objColors = {};
 	start = 0;
-	rootsProcessed = [];
+	// rootsProcessed = [];
 	colors = [];
 
 	constructor(container, config) {
@@ -284,10 +284,10 @@ isg.Graph = class {
 	}
 
 	fetchData(root, properties, nodeID) {
-		if (this.rootsProcessed.indexOf(root) !== -1) {
-			return;
-		}
-		this.rootsProcessed.push(root);
+		// if (this.rootsProcessed.indexOf(root) !== -1) {
+		// 	return;
+		// }
+		// this.rootsProcessed.push(root);
 		if (this.data.nodes.get(root).isLiteral) return; //don't query on literals
 		if (!properties) return;
 		var promise = this.data.fetchData(
@@ -304,10 +304,10 @@ isg.Graph = class {
 			if (this.first_call && this.config.depth) {
 				var first_nodes = this.data.nodes.getIds();
 				// this may prevent recursive processing
-				first_nodes = first_nodes.filter(
-					(x) => this.rootsProcessed.indexOf(x) === -1
-				);
-				// first_nodes = first_nodes.slice(1);
+				// first_nodes = first_nodes.filter(
+				// 	(x) => this.rootsProcessed.indexOf(x) === -1
+				// );
+				first_nodes = first_nodes.slice(1);
 				this.getStartIds(first_nodes);
 				this.first_call = false;
 			}
@@ -1295,4 +1295,3 @@ isg.Graph = class {
 		}
 	}
 };
-
