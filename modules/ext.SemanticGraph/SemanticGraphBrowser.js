@@ -1,8 +1,8 @@
-//InteractiveSemanticGraphBrowser
+//SemanticGraphBrowser
 /*@nomin*/
 /* 
-DEV: MediaWiki:InteractiveSemanticGraphBrowser.js
-REL: modules/ext.InteractiveSemanticGraph/InteractiveSemanticGraphBrowser.js
+DEV: MediaWiki:SemanticGraphBrowser.js
+REL: modules/ext.SemanticGraph/SemanticGraphBrowser.js
 hint: ResourceLoader minifier does not support ES6 yet, therefore skip minification  with "nomin" (see https://phabricator.wikimedia.org/T255556)
 */
 
@@ -38,7 +38,7 @@ isg.browser = class {
 		  }]
 		});
 		
-		this.$element.find('.InteractiveSemanticGraph').detach().appendTo(`#isgb-${this.uid}-container-left`); //graph div has to be created in advance for now, move to left side
+		this.$element.find('.SemanticGraph').detach().appendTo(`#isgb-${this.uid}-container-left`); //graph div has to be created in advance for now, move to left side
 		
 		this.$buttonAddTab = $(`<button id="${this.uid}-add-tab" style="width: 40px;height: 40px;">+</button>`);
 		this.$buttonAddTab.button().on( "click", (e) => this.addTab());
@@ -98,7 +98,7 @@ isg.browser = class {
 		this.tabs.find( ".ui-tabs-nav" ).append( $header );
 		var $tab = $(
 			`<div id="isgb-${this.uid}-tab-${index}" style="width: 100%;height: 95%;">
-				<iframe id="isgb-${this.uid}-iframe-${index}" src="/wiki/${title}" frameborder="0" scrolling="yes" style="width: 100%; height: 100%;"></iframe>
+				<iframe id="isgb-${this.uid}-iframe-${index}" src="${isg.util.articlePath(title)}" frameborder="0" scrolling="yes" style="width: 100%; height: 100%;"></iframe>
 			</div>`);
 		this.tabs.append($tab);
 		this.tabs.tabs( "refresh" );
@@ -116,10 +116,10 @@ isg.browser = class {
 
 $(document).ready(function () {
 
-	if (!$(".InteractiveSemanticGraphBrowser")) return;
+	if (!$(".SemanticGraphBrowser")) return;
 	//mw.loader.load("//some-server/some.css", "text/css");
-	console.log("InteractiveSemanticGraphBrowser init");
-	$(".InteractiveSemanticGraphBrowser").each( function() {
+	console.log("SemanticGraphBrowser init");
+	$(".SemanticGraphBrowser").each( function() {
 		var browser = new isg.browser(this);
 	});
 

@@ -1,51 +1,109 @@
 {
     "manifest_version":2,
-    "name":"InteractiveSemanticGraph",
-    "version":"0.3.2",
+    "name":"SemanticGraph",
+    "version":"0.1.12",
     "author":[
         "[https://github.com/simontaurus Simon Stier]",
         "[https://github.com/AlexanderPraktikum2021 Alexander Triol]"
     ],
-    "url":"https://github.com/OpenSemanticLab/mediawiki-extensions-InteractiveSemanticGraph",
-    "descriptionmsg":"interactive-semantic-graph-desc",
+    "url":"https://github.com/OpenSemanticLab/mediawiki-extensions-SemanticGraph",
+    "descriptionmsg":"semantic-graph-desc",
     "namemsg":"interactive-semantic-graph-name",
     "license-name":"AGPL-3.0-or-later",
     "type":"editor",
     "requires":{
-        "MediaWiki":">= 1.31",
-        "extensions": {
-			"MwJson": ">= 0.2.5"
-		}
+        "MediaWiki":">= 1.31"
     },
     "MessagesDirs":{
-        "InteractiveSemanticGraph":[
+        "SemanticGraph":[
             "i18n"
         ]
     },
+	"ExtensionMessagesFiles": {
+		"SemanticGraphMagic": "SemanticGraph.i18n.magic.php"
+	},
     "ResourceModules":{
-        "ext.InteractiveSemanticGraph":{
-            "localBasePath":"modules/ext.InteractiveSemanticGraph",
-            "remoteExtPath":"InteractiveSemanticGraph/modules/ext.InteractiveSemanticGraph",
+        "ext.SemanticGraph":{
+            "localBasePath":"modules/ext.SemanticGraph",
+            "remoteExtPath":"SemanticGraph/modules/ext.SemanticGraph",
             "styles":[
-                "InteractiveSemanticGraph.css"
+                "SemanticGraph.css"
             ],
             "scripts":[
                 "vis-network.min.js",
-                "InteractiveSemanticGraph.js",
-                "InteractiveSemanticGraphData.js",
-                "InteractiveSemanticGraphUI.js",
-                "InteractiveSemanticGraphUtils.js",
+                "SemanticGraph.js",
+                "SemanticGraphData.js",
+                "SemanticGraphUI.js",
+                "SemanticGraphUtils.js",
                 "split-grid.min.js",
-                "InteractiveSemanticGraphBrowser.js",
-                "InteractiveSemanticGraph_init.js"
+                "SemanticGraphBrowser.js",
+                "SemanticGraph_init.js"
+            ],
+            "position":"bottom"
+        },
+        "ext.mwjson":{
+            "localBasePath":"modules/ext.MwJson",
+            "remoteExtPath":"MwJson/modules/ext.MwJson",
+            "styles":[
+                "MwJson.css",
+                "bootstrap.min.css",
+                "fontawesome.min.css",
+                "spectre-icons.min.css"
+            ],
+            "scripts":[
+                "MwJson.js",
+                "bootstrap.min.js"
+            ],
+            "position":"top"
+        },
+        "ext.mwjson.util":{
+            "localBasePath":"modules/ext.MwJson.util",
+            "remoteExtPath":"MwJson/modules/ext.MwJson.util",
+            "scripts":[
+                "lz-string.min.js",
+                "json-schema-ref-parser.js",
+                "jsonpath.min.js",
+                "MwJson_util.js",
+                "MwJson_schema.js",
+                "MwJson_extData.js",
+                "jsonschema-jsonschema.js"
+            ],
+            "dependencies": [
+                "ext.mwjson"
+            ],
+            "position":"bottom"
+        },
+        "ext.mwjson.api":{
+            "localBasePath":"modules/ext.MwJson.api",
+            "remoteExtPath":"MwJson/modules/ext.MwJson.api",
+            "scripts":[
+                "MwJson_api.js"
+            ],
+            "dependencies": [
+                "ext.mwjson.util"
+            ],
+            "position":"bottom"
+        },
+        "ext.mwjson.parser":{
+            "localBasePath":"modules/ext.MwJson.parser",
+            "remoteExtPath":"MwJson/modules/ext.MwJson.parser",
+            "scripts":[
+                "CeJS_wiki.min.js",
+                "MwJson_parser.js"
+            ],
+            "dependencies": [
+                "ext.mwjson.util"
             ],
             "position":"bottom"
         }
     },
     "AutoloadClasses":{
-        "InteractiveSemanticGraph":"includes/InteractiveSemanticGraph.php"
+        "SemanticGraph":"includes/SemanticGraph.php"
     },
     "Hooks":{
-        "BeforePageDisplay":"InteractiveSemanticGraph::onBeforePageDisplay"
+        "BeforePageDisplay":"SemanticGraph::onBeforePageDisplay",
+		"ParserFirstCallInit": "SemanticGraph::onParserFirstCallInit",
+		"OutputPageParserOutput": "SemanticGraph::onOutputPageParserOutput"
+
     }
 }
